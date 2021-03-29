@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Scene4 : MonoBehaviour
 {
-
     [SerializeField] private int lineSize;
     [SerializeField] private GameObject takenPrefab, availablePrefab;
 
@@ -10,12 +9,24 @@ public class Scene4 : MonoBehaviour
     private void Start()
     {
         cells = new Cell[lineSize];
-        var pos = Vector3.zero;
+
+        FillArray();
+
+        ContaminateArray();
+
+        InstantiateArray();
+    }
+
+    private void FillArray()
+    {
         for (var i = 0; i < lineSize; i++)
         {
             cells[i] = new Cell();
         }
+    }
 
+    private void ContaminateArray()
+    {
         for (var i = 1; i < lineSize - 1; i++)
         {
             if (cells[i - 1].IsTaken & cells[i + 1].IsTaken)
@@ -23,7 +34,11 @@ public class Scene4 : MonoBehaviour
                 cells[i].IsTaken = true;
             }
         }
+    }
 
+    private void InstantiateArray()
+    {
+        var pos = Vector3.zero;
         for (var i = 0; i < lineSize; i++)
         {
             pos.x = i;
