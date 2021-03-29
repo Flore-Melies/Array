@@ -10,3 +10,12 @@ public class Cell
         IsTaken = coinFlip == 1;
     }
 }
+
+public class SecondCell
+{
+    public GameObject Prefab;
+    public SecondCell(GameObject obj)
+    {
+        Prefab = obj;
+    }
+}

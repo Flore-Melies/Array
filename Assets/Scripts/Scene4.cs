@@ -24,7 +24,7 @@ public class Scene4 : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < lineSize; i++)
+        for (var i = 0; i < lineSize; i++)
         {
             pos.x = i;
             if (cells[i].IsTaken)
@@ -37,4 +37,5 @@ public class Scene4 : MonoBehaviour
             }
         }
     }
+    //TODO: Générer une lignes de cellules qui choisissent un prefab aléatoire parmi une liste, puis si une cellule est entourée de deux cellules identiques, elle est contaminée
 }
