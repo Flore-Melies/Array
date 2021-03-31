@@ -19,3 +19,16 @@ public class SecondCell
         Prefab = obj;
     }
 }
+
+public class ThirdCell
+{
+    public GameObject Prefab;
+    public bool IsTaken;
+
+    public ThirdCell(GameObject obj)
+    {
+        Prefab = obj;
+        var coinFlip = Random.Range(0, 2);
+        IsTaken = coinFlip == 1;
+    }
+}

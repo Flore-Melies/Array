@@ -2,32 +2,55 @@ using UnityEngine;
 
 public class Scene5 : MonoBehaviour
 {
-
     [SerializeField] private int lineSize;
-    [SerializeField] private GameObject[] prefabs;
+    [SerializeField] private GameObject takenPrefab, availablePrefab;
 
-    private SecondCell[] cells;
+    private Cell[] cells;
     private void Start()
     {
-        cells = new SecondCell[lineSize];
+        cells = new Cell[lineSize];
+
+        FillArray();
+
+        ContaminateArray();
+
+        InstantiateArray();
+    }
+
+    private void FillArray()
+    {
+        for (var i = 0; i < lineSize; i++)
+        {
+            cells[i] = new Cell();
+        }
+    }
+
+    private void ContaminateArray()
+    {
+        for (var i = 1; i < lineSize - 1; i++)
+        {
+            if (cells[i - 1].IsTaken & cells[i + 1].IsTaken)
+            {
+                cells[i].IsTaken = true;
+            }
+        }
+    }
+
+    private void InstantiateArray()
+    {
         var pos = Vector3.zero;
         for (var i = 0; i < lineSize; i++)
         {
-            cells[i] = new SecondCell(prefabs[Random.Range(0,prefabs.Length)]);
-        }
-
-        for (var i = 1; i < lineSize - 1; i++)
-        {
-            if (cells[i - 1].Prefab == cells[i + 1].Prefab)
+            pos.x = i;
+            if (cells[i].IsTaken)
             {
-                cells[i].Prefab = cells[i - 1].Prefab;
+                Instantiate(takenPrefab, pos, Quaternion.identity);
+            }
+            else
+            {
+                Instantiate(availablePrefab, pos, Quaternion.identity);
             }
         }
-
-        for (var i = 0; i < lineSize; i++)
-        {
-            pos.x = i;
-            Instantiate(cells[i].Prefab, pos, Quaternion.identity);
-        }
     }
+    //TODO: Générer une lignes de cellules qui choisissent un prefab aléatoire parmi une liste, puis si une cellule est entourée de deux cellules identiques, elle est contaminée
 }

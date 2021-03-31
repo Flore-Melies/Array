@@ -149,16 +149,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 10218475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcd5b4e7b7a501444816090a522181ea, type: 3}
+  m_Script: {fileID: 11500000, guid: 8269771794c3a6a4785381085b9952dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lineSize: 50
-  prefabs:
-  - {fileID: 5650725239339825863, guid: 71a7c2452eb61bd4795881b2dc2b548e, type: 3}
-  - {fileID: 5650725239339825863, guid: e4d892303a763f545b9807b6cf0eecc8, type: 3}
-  - {fileID: 5650725239339825863, guid: 65194dbe7bb44374b8c773504f67fd26, type: 3}
-  - {fileID: 5650725239339825863, guid: 4013fc42321b3734d94af7cd1db06590, type: 3}
-  - {fileID: 5650725239339825863, guid: 8426836134379b44ba501922af875ae1, type: 3}
+  takenPrefab: {fileID: 5650725239339825863, guid: e4d892303a763f545b9807b6cf0eecc8, type: 3}
+  availablePrefab: {fileID: 5650725239339825863, guid: 71a7c2452eb61bd4795881b2dc2b548e, type: 3}
 --- !u!4 &10218477
 Transform:
   m_ObjectHideFlags: 0
