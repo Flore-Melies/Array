@@ -25,6 +25,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Destroy"",
+                    ""type"": ""Button"",
+                    ""id"": ""169bc415-68d8-4592-a80c-1fe2d49ef805"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -36,6 +44,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Spawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1ac086f-5301-492a-b7eb-5d0a148ebc0a"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Destroy"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -59,6 +78,7 @@ public class @Controls : IInputActionCollection, IDisposable
         // Main
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Spawn = m_Main.FindAction("Spawn", throwIfNotFound: true);
+        m_Main_Destroy = m_Main.FindAction("Destroy", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -109,11 +129,13 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Main;
     private IMainActions m_MainActionsCallbackInterface;
     private readonly InputAction m_Main_Spawn;
+    private readonly InputAction m_Main_Destroy;
     public struct MainActions
     {
         private @Controls m_Wrapper;
         public MainActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Spawn => m_Wrapper.m_Main_Spawn;
+        public InputAction @Destroy => m_Wrapper.m_Main_Destroy;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -126,6 +148,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Spawn.started -= m_Wrapper.m_MainActionsCallbackInterface.OnSpawn;
                 @Spawn.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnSpawn;
                 @Spawn.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnSpawn;
+                @Destroy.started -= m_Wrapper.m_MainActionsCallbackInterface.OnDestroy;
+                @Destroy.performed -= m_Wrapper.m_MainActionsCallbackInterface.OnDestroy;
+                @Destroy.canceled -= m_Wrapper.m_MainActionsCallbackInterface.OnDestroy;
             }
             m_Wrapper.m_MainActionsCallbackInterface = instance;
             if (instance != null)
@@ -133,6 +158,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Spawn.started += instance.OnSpawn;
                 @Spawn.performed += instance.OnSpawn;
                 @Spawn.canceled += instance.OnSpawn;
+                @Destroy.started += instance.OnDestroy;
+                @Destroy.performed += instance.OnDestroy;
+                @Destroy.canceled += instance.OnDestroy;
             }
         }
     }
@@ -149,5 +177,6 @@ public class @Controls : IInputActionCollection, IDisposable
     public interface IMainActions
     {
         void OnSpawn(InputAction.CallbackContext context);
+        void OnDestroy(InputAction.CallbackContext context);
     }
 }

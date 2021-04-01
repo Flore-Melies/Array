@@ -1,21 +1,23 @@
 using UnityEngine;
 
-public class Scene8 : MonoBehaviour
+public class Scene9 : MonoBehaviour
 {
     [SerializeField] private int lineSizeX, lineSizeY;
     [SerializeField] private GameObject[] prefabs;
 
-    private SecondCell[,] cells;
+    private ThirdCell[,] cells;
+    private GameObject[,] cellsObjects;
 
     private void Start()
     {
-        cells = new SecondCell[lineSizeX, lineSizeY];
+        cells = new ThirdCell[lineSizeX, lineSizeY];
+        cellsObjects = new GameObject[lineSizeX, lineSizeY];
         var pos = Vector3.zero;
         for (var i = 0; i < lineSizeX; i++)
         {
             for (var j = 0; j < lineSizeY; j++)
             {
-                cells[i, j] = new SecondCell(prefabs[Random.Range(0, prefabs.Length)]);
+                cells[i, j] = new ThirdCell(prefabs[Random.Range(0, prefabs.Length)]);
             }
         }
 
@@ -36,10 +38,19 @@ public class Scene8 : MonoBehaviour
             {
                 pos.x = i;
                 pos.y = j;
-                Instantiate(cells[i, j].Prefab, pos, Quaternion.identity);
+                cellsObjects[i, j] = Instantiate(cells[i, j].Prefab, pos, Quaternion.identity);
+            }
+        }
+
+        for (var i = 0; i < lineSizeX; i++)
+        {
+            for (var j = 0; j < lineSizeY; j++)
+            {
+                if (cells[i, j].IsTaken)
+                {
+                    cellsObjects[i, j].GetComponent<SpriteRenderer>().color = Color.grey;
+                }
             }
         }
     }
-
-    //TODO:Reproduire la scène 9
 }

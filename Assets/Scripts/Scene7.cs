@@ -1,45 +1,43 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Scene7 : MonoBehaviour
 {
-    [SerializeField] private int lineSizeX, lineSizeY;
-    [SerializeField] private GameObject[] prefabs;
 
-    private SecondCell[,] cells;
+    [SerializeField] private List<GameObject> list;
 
-    private void Start()
+    private List<GameObject> listObjects;
+    private Controls controls;
+
+    private void OnEnable()
     {
-        cells = new SecondCell[lineSizeX, lineSizeY];
-        var pos = Vector3.zero;
-        for (var i = 0; i < lineSizeX; i++)
-        {
-            for (var j = 0; j < lineSizeY; j++)
-            {
-                cells[i, j] = new SecondCell(prefabs[Random.Range(0, prefabs.Length)]);
-            }
-        }
+        controls = new Controls();
+        controls.Enable();
+        controls.Main.Spawn.performed += OnSpawnPerformed;
+        controls.Main.Destroy.performed += OnDestroyPerformed;
+    }
 
-        for (var i = 1; i < lineSizeX - 1; i++)
+    private void OnDestroyPerformed(InputAction.CallbackContext obj)
+    {
+        foreach (var instancedGameObject in listObjects)
         {
-            for (var j = 1; j < lineSizeY - 1; j++)
-            {
-                if (cells[i - 1, j].Prefab == cells[i + 1, j].Prefab)
-                {
-                    cells[i, j].Prefab = cells[i - 1, j].Prefab;
-                }
-            }
-        }
-
-        for (var i = 0; i < lineSizeX; i++)
-        {
-            for (var j = 0; j < lineSizeY; j++)
-            {
-                pos.x = i;
-                pos.y = j;
-                Instantiate(cells[i, j].Prefab, pos, Quaternion.identity);
-            }
+            Destroy(instancedGameObject);
         }
     }
 
-    //TODO:Reproduire la scène 8
+    private void OnSpawnPerformed(InputAction.CallbackContext obj)
+    {
+        var randomPrefab = list[Random.Range(0, list.Count)];
+        var posX = Random.Range(-9f, 9f);
+        var posY = Random.Range(-5f, 5f);
+        var pos = new Vector3(posX, posY, 0);
+        var instance = Instantiate(randomPrefab, pos, Quaternion.identity);
+        listObjects.Add(instance);
+    }
+
+    private void Start()
+    {
+        listObjects = new List<GameObject>();
+    }
 }
