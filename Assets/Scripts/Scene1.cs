@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Code d'exemple sans tableau
+/// </summary>
 public class Scene1 : MonoBehaviour
 {
 
@@ -19,18 +22,17 @@ public class Scene1 : MonoBehaviour
         controls.Main.Spawn.performed += OnSpawnPerformed;
     }
 
+    /// <summary>
+    /// Quand on appuie sur espace on fait spawner tous les objets
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnSpawnPerformed(InputAction.CallbackContext obj)
     {
-        FirstIteration();
-    }
-
-    /// <summary>
-    /// Façon naive de faire
-    /// </summary>
-    private void FirstIteration()
-    {
+        // Déclaration de la variable qui va contenir la position à laquelle instancier les objets
         var pos = Vector3.zero;
+        // https://docs.unity3d.com/ScriptReference/Object.Instantiate.html
         Instantiate(prefabToSpawn, pos, Quaternion.identity);
+        // pos.x++ est la meme chose que pos.x += 1 qui est la meme chose que pos.x = pos.x + 1
         pos.x++;
         Instantiate(prefabToSpawn2, pos, Quaternion.identity);
         pos.x++;

@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Correction de la question à la fin de Scene 8
+/// </summary>
 public class Scene9 : MonoBehaviour
 {
     [SerializeField] private int lineSizeX, lineSizeY;
