@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Code d'exemple avec des tableaux
+/// </summary>
 public class Scene2 : MonoBehaviour
 {
-
+    // Ajouter [] après le type de variable: créer un tableau du type de la variable déclarée
+    // Par exemple ici on crée un tableau de GameObjects
     [SerializeField] private GameObject[] prefabsToSpawn;
 
     private Controls controls;
@@ -18,10 +22,12 @@ public class Scene2 : MonoBehaviour
     private void OnSpawnPerformed(InputAction.CallbackContext obj)
     {
         FirstIteration();
+        //SecondIteration();
+        //ThirdIteration();
     }
 
     /// <summary>
-    /// Foreach
+    /// Utilisation d'une boucle foreach pour itérer sur tous les éléments d'un tableau sans distinction
     /// </summary>
     private void FirstIteration()
     {
@@ -32,7 +38,7 @@ public class Scene2 : MonoBehaviour
     }
 
     /// <summary>
-    /// While
+    /// Utilisation d'une boucle while pour itérer sur un nombre d'éléments arbitraire
     /// </summary>
     private void SecondIteration()
     {
@@ -47,7 +53,7 @@ public class Scene2 : MonoBehaviour
     }
 
     /// <summary>
-    /// For
+    /// Utilisation d'une boucle for pour itérer sur un nombre d'éléments arbitraire avec une syntaxe plus condensée
     /// </summary>
     private void ThirdIteration()
     {
@@ -55,6 +61,8 @@ public class Scene2 : MonoBehaviour
         for (var i = 0; i < prefabsToSpawn.Length; i++)
         {
             pos.x = i;
+            // On peut accéder à une case d'un tableau en faisant "nomDuTableau[index]
+            // Par exemple "prefabsToSpawn[0]" est une référence qu premier objet du tableau "prefabsToSpawn"
             Instantiate(prefabsToSpawn[i], pos, Quaternion.identity);
         }
     }
